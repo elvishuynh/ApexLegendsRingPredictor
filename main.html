@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  #mapCanvas {
+    width: 800px;
+    height: 800px;
+    border: 1px solid black;
+  }
+</style>
+<script>
+  var canvas, ctx, ring1CenterX, ring1CenterY, ring2CenterX, ring2CenterY;
+
+  function init() {
+    canvas = document.getElementById('mapCanvas');
+    ctx = canvas.getContext('2d');
+    canvas.addEventListener('click', drawRing);
+  }
+
+  function drawRing(e) {
+    var centerX = e.clientX - canvas.offsetLeft;
+    var centerY = e.clientY - canvas.offsetTop;
+
+    if (!ring1CenterX && !ring1CenterY) {
+      ring1CenterX = centerX;
+      ring1CenterY = centerY;
+    } else if (!ring2CenterX && !ring2CenterY) {
+      ring2CenterX = centerX;
+      ring2CenterY = centerY;
+    } else {
+      return;
+    }
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 50, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+
+  function predictNextRing() {
+    if (!ring1CenterX || !ring1CenterY || !ring2CenterX || !ring2CenterY) {
+      alert('Please draw both rings on the map before predicting the next ring.');
+      return;
+    }
+
+    // Use the provided JavaScript code here to predict the next ring
+    // ...
+  }
+</script>
+</head>
+<body onload="init()">
+  <canvas id="mapCanvas"></canvas>
+  <button onclick="predictNextRing()">Predict Next Ring</button>
+</body>
+</html>
